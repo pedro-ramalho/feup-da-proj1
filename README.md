@@ -2,7 +2,7 @@
 
 ## Pre-requisites
 
-1. <a href="https://cmake.org/download/">CMake</a>, version >= 17.0
+1. <a href="https://cmake.org/download/">CMake</a>, version >= 3.17.0
 2. IDE or text editor
 
 ## Steps
