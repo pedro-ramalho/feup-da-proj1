@@ -1,2 +1,10 @@
-.vscode
+# ignore ide or text editor config files
+.vscode/
+.idea/
 idea/
+build/
+
+# ignore cmake output files
+CMakeFiles/
+cmake-build-debug/
+CMakeCache.txt
