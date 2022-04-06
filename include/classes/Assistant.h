@@ -3,7 +3,7 @@
 
 class Assistant {
 private:
-  inline static int last_id = 0;
+  inline static unsigned int last_id = 0;
 
   unsigned int id;
   unsigned int cost;
