@@ -1,5 +1,9 @@
 #include <vector>
 #include <string>
+#include <sstream>
+#include <fstream>
+#include <algorithm>
+#include <iostream>
 
 #include "classes/Assistant.h"
 #include "classes/Delivery.h"
