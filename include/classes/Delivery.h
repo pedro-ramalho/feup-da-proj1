@@ -9,7 +9,7 @@ private:
   unsigned int volume;
   unsigned int weight;
   unsigned int compensation;
-  unsigned int delivery_time;
+  unsigned int time;
   //possibly bool express;
   //possibly unsigned int num_days;
   /* to be completed */
@@ -17,14 +17,14 @@ private:
 public:
   
   /* constructor */
-  Delivery(unsigned int volume, unsigned int weight, unsigned int compensation, unsigned int delivery_time);
+  Delivery(unsigned int volume, unsigned int weight, unsigned int compensation, unsigned int time);
   
   /* getters */
   unsigned int get_id() const;
   unsigned int get_volume() const;
   unsigned int get_weight() const;
   unsigned int get_compensation() const;
-  unsigned int get_delivery_time() const;
+  unsigned int get_time() const;
 
   /* to be completed */
 };

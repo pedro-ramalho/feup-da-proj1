@@ -4,6 +4,9 @@ Assistant::Assistant(unsigned int volume, unsigned int weight, unsigned int cost
   this->max_volume = volume;
   this->max_weight = weight;
   this->cost = cost;
+  this->id = Assistant::last_id;
+
+  Assistant::last_id++;
 }
 
 unsigned int Assistant::get_max_volume() const {
