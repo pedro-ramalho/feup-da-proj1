@@ -1,3 +1,3 @@
 #include <iostream>
 
-void print();
+void print(); // test function
