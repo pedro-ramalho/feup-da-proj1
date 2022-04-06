@@ -1,6 +1,8 @@
 #ifndef ASSISTANT_H
 #define ASSISTANT_H
 
+#include <iostream>
+
 class Assistant {
 private:
   inline static unsigned int last_id = 0;
@@ -21,6 +23,9 @@ public:
   unsigned int get_cost() const;
   unsigned int get_max_volume() const;
   unsigned int get_max_weight() const;
+
+  /* operator overloads */
+  friend std::ostream& operator<<(std::ostream& os, const Assistant &a);
 
 };
 
