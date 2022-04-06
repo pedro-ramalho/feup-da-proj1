@@ -1,10 +1,9 @@
 #include "include/utils.h"
 
 int main() {
-  Assistant assistant(0, 0, 0);
-  Assistant assistant2(1, 1, 1);
-  std::vector<Assistant> bruh = {assistant, assistant2};
-  print_vector(bruh);
+  std::vector<Assistant> bruh = read_assistants_file("data/assistants.txt");
+  std::vector<Delivery> bruh2 = read_deliveries_file("data/deliveries.txt");
+  print_vector(bruh2);
   
   return 0;
 }

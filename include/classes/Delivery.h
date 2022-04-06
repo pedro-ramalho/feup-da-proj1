@@ -1,6 +1,8 @@
 #ifndef DELIVERY_H
 #define DELIVERY_H
 
+#include <iostream>
+
 class Delivery {
 private:
   inline static unsigned int last_id = 0;
@@ -26,6 +28,7 @@ public:
   unsigned int get_compensation() const;
   unsigned int get_time() const;
 
+  friend std::ostream& operator<<(std::ostream& os, const Delivery &a);
   /* to be completed */
 };
 

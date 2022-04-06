@@ -29,3 +29,8 @@ unsigned int Delivery::get_compensation() const {
 unsigned int Delivery::get_time() const {
   return this->time;
 }
+
+std::ostream & operator << (std::ostream &os, const Delivery &a) {
+  os << "Delivery: id = " << a.get_id() << ", volume = " << a.get_volume() << ", weight = " << a.get_weight() << ", compensation = " << a.get_compensation() << ", time = " << a.get_time() << ".";
+  return os;
+}
