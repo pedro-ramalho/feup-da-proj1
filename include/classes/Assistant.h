@@ -17,10 +17,10 @@ public:
   Assistant(unsigned int volume, unsigned int weight, unsigned int cost);
 
   /* getters */  
-  unsigned get_id();
-  unsigned get_cost();
-  unsigned get_max_volume();
-  unsigned get_max_weight();
+  unsigned get_id() const;
+  unsigned get_cost() const;
+  unsigned get_max_volume() const;
+  unsigned get_max_weight() const;
 
 };
 

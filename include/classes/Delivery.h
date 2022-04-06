@@ -20,11 +20,11 @@ public:
   Delivery(unsigned int volume, unsigned int weight, unsigned int compensation, unsigned int delivery_time);
   
   /* getters */
-  unsigned int get_id();
-  unsigned int get_volume();
-  unsigned int get_weight();
-  unsigned int get_compensation();
-  unsigned int get_delivery_time();
+  unsigned int get_id() const;
+  unsigned int get_volume() const;
+  unsigned int get_weight() const;
+  unsigned int get_compensation() const;
+  unsigned int get_delivery_time() const;
 
   /* to be completed */
 };
