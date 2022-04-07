@@ -29,7 +29,6 @@ public:
   unsigned int get_time() const;
 
   friend std::ostream& operator<<(std::ostream& os, const Delivery &a);
-  /* to be completed */
 };
 
 #endif
