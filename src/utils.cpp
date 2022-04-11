@@ -71,3 +71,39 @@ std::vector<Delivery> read_deliveries_file(const std::string filename) {
   
   return deliveries;
 }
+
+bool is_integer(std::string& str) {
+  int size = str.size();
+
+  for (int i = 0; i < size; i++)
+    if (!isdigit(str[i]))
+      return false;
+
+  return true;
+}
+
+int choose_option() {
+  std::string option = "";
+
+  while (true) {
+    std::cout << "Choose an option:" << std::endl;
+    std::cout << ">> ";
+    std::getline(std::cin, option);
+    
+    if (std::cin.eof()) {
+      std::cout << '\n';
+      std::cin.clear();
+      return -1;
+    }
+
+    if (is_integer(option))
+      return stoi(option);
+    else {
+      std::cerr << "Error: invalid input type!" << std::endl;
+      std::cout << '\n';
+      std::cin.clear();
+    }
+  }
+  
+  return -1;
+}
