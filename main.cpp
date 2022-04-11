@@ -1,8 +1,8 @@
-#include "include/utils.h"
-
+#include "include/classes/Menu.h"
 
 int main() {
-  int x = choose_option();
-  std::cout << "The option you chose is: " << x << std::endl;  
+  Menu menu;
+  menu.run();
+  
   return 0;
 }

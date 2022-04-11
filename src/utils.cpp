@@ -1,5 +1,20 @@
 #include "../include/utils.h"
 
+std::vector<std::string> read_menu_file(const std::string filename) {
+  std::vector<std::string> content;
+  std::ifstream file;
+  std::string line;
+  
+  file.open(filename);
+
+  while (getline(file, line))
+    content.push_back(line);
+
+  file.close();
+
+  return content;
+}
+
 std::vector<Assistant> read_assistants_file(const std::string filename) {
   unsigned short data_size;
   unsigned int volume, weight, cost;
@@ -86,14 +101,14 @@ int choose_option() {
   std::string option = "";
 
   while (true) {
-    std::cout << "Choose an option:" << std::endl;
+    std::cout << "\nChoose an option:" << std::endl;
     std::cout << ">> ";
     std::getline(std::cin, option);
     
     if (std::cin.eof()) {
       std::cout << '\n';
       std::cin.clear();
-      return -1;
+      return 0;
     }
 
     if (is_integer(option))
