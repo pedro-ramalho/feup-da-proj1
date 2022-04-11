@@ -31,6 +31,6 @@ unsigned int Delivery::get_time() const {
 }
 
 std::ostream & operator << (std::ostream &os, const Delivery &a) {
-  os << "Delivery: id = " << a.get_id() << ", volume = " << a.get_volume() << ", weight = " << a.get_weight() << ", compensation = " << a.get_compensation() << ", time = " << a.get_time() << ".";
+  os << "Delivery " << a.get_id() << "\n> Volume: " << a.get_volume() << "\n> Weight: " << a.get_weight() << "\n> Compensation: " << a.get_compensation() << "\n> Time: " << a.get_time() << "\n\n";
   return os;
 }

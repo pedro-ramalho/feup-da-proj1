@@ -27,6 +27,6 @@ unsigned int Assistant::get_id() const {
 
 
 std::ostream & operator << (std::ostream &os, const Assistant &a) {
-    os << "Assistant: id = " << a.get_id() << ", volume = " << a.get_max_volume() << ", weight = " << a.get_max_weight() << ", cost = " << a.get_cost() << ".";
-    return os;
+  os << "Assistant " << a.get_id() << "\n> Volume: " << a.get_max_volume() << "\n> Weight: " << a.get_max_weight() << "\n> Cost: " << a.get_cost() << "\n\n";
+  return os;
 }
