@@ -1,0 +1,14 @@
+*- Listing options -*
+[1] List vehicles
+[2] List assistants
+
+*- Inserting options -*
+[3] Add vehicle
+[4] Add assistant
+
+*- Algorithms -*
+[5] Load scenario 1
+[6] Load scenario 2
+[7] Load scenario 3
+
+[0] Exit
