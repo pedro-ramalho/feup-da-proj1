@@ -1,12 +1,6 @@
 
-[1] List vehicles
-[2] List assistants
----
-[3] Add vehicle
-[4] Add assistant
----
-[5] Load scenario 1
-[6] Load scenario 2
-[7] Load scenario 3
+[1] Load scenario 1
+[2] Load scenario 2
+[3] Load scenario 3
 ---
 [0] Exit

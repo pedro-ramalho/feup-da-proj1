@@ -1,10 +1,8 @@
-#include "include/classes/Assistant.h"
-#include "include/utils.h"
-#include "include/const.h"
+#include "include/classes/Menu.h"
 
 int main() {
-  std::vector<Delivery> test = read_deliveries_file("data/deliveries.txt");
-  print_vector(test);
+  Menu menu;
+  menu.run();
 
   return 0;
 }

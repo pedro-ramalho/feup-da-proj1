@@ -8,9 +8,9 @@ private:
   inline static unsigned int last_id = 0;
 
   unsigned int id;
-  unsigned int cost;
 	unsigned int max_volume;
 	unsigned int max_weight;
+  unsigned int cost;
   //possibly int max_time
   
 public:
