@@ -13,6 +13,9 @@ void Menu::run() {
     option = choose_option();
   } while (option == -1);
 
+  if (option == 0)
+    exit(0);
+  
   this->init_scenario(option);
 }
 

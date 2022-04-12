@@ -2,8 +2,6 @@
 #define MENU_H
 
 #include "Platform.h"
-#include "../utils.h"
-#include "../const.h"
 
 class Menu {
 private:

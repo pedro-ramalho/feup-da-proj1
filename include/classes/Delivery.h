@@ -28,6 +28,8 @@ public:
   unsigned int get_compensation() const;
   unsigned int get_time() const;
 
+  static void reset_last_id();
+  
   friend std::ostream& operator<<(std::ostream& os, const Delivery &a);
 };
 
