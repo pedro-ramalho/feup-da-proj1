@@ -20,8 +20,6 @@ void Platform::load_scenario(unsigned int scenario, unsigned int size) {
   const std::string assistants_file = ASSISTANTS_FILE_PREFIX + std::to_string(int(pow(2, size + 7))) + TEXT_FILE_SUFFIX;
   const std::string deliveries_file = DELIVERIES_FILE_PREFIX + std::to_string(int(pow(2, size + 7))) + TEXT_FILE_SUFFIX;
 
-  std::cout << assistants_file << std::endl;
-
   this->assistants = read_assistants_file(assistants_file);
   this->deliveries = read_deliveries_file(deliveries_file);
   

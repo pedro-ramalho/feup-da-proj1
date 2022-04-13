@@ -8,3 +8,11 @@ build/
 CMakeFiles/
 cmake-build-debug/
 CMakeCache.txt
+
+# ignore latex output files
+report/*.aux
+report/*.log
+report/*.nav
+report/*.out
+report/*.snm
+report/*.toc
