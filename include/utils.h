@@ -5,6 +5,8 @@
 #include <algorithm>
 #include <iostream>
 #include <chrono>
+#include <ctime>
+#include <random>
 
 #include "classes/Assistant.h"
 #include "classes/Delivery.h"
@@ -49,3 +51,8 @@ bool sort_ass_value(Assistant a1, Assistant a2);
 /* verify if a delivery fits inside a vehicle */
 
 bool fits(Delivery delivery, Assistant assistant);
+
+
+/* data generation */
+
+void generate_data();

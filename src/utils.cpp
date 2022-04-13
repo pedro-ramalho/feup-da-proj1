@@ -164,3 +164,52 @@ bool sort_ass_value(Assistant a1, Assistant a2) {
 bool fits(Delivery delivery, Assistant assistant) {
   return assistant.get_max_volume() >= delivery.get_volume() && assistant.get_max_weight() >= delivery.get_weight();
 }
+
+void generate_data() {
+  int num_assistants = 1;
+  int num_deliveries = 9 * num_assistants; // this ratio was based on the original dataset (50 assistants to 450 deliveries)
+  
+  int volume, weight, reward, cost, time;
+
+  /* specify paths */
+  std::string assistants_file = "data/assistants" + std::to_string(num_assistants) + ".txt";
+  std::string deliveries_file = "data/deliveries" + std::to_string(num_assistants) + ".txt";
+
+  std::ofstream f_ass, f_del;
+
+  /* generate assistants data */
+  f_ass.open(assistants_file);
+
+  f_ass << num_assistants << '\n';
+  f_ass << "volMax pesoMax custo" << '\n'; // write the header
+
+  srand(std::time(NULL));
+
+  for (int n = 0; n < num_assistants; n++) {
+    volume = 250 + rand() % ((400 + 1) - 250);
+    weight = 250 + rand() % ((400 + 1) - 250);
+    cost = 13000 + rand() % ((1700 + 1) - 13000);
+    f_ass << volume << " " << weight << " " << cost << '\n';
+  }
+
+  f_ass.close();
+
+  
+  /* generate deliveries data */
+  f_del.open(deliveries_file);
+
+  f_del << num_deliveries << '\n';
+  f_del << "volume peso recompensa duração(s)" << '\n';
+
+  srand(std::time(NULL));
+
+  for (int n = 0; n < num_deliveries; n++) {
+    volume = 1 + rand() % ((30 + 1) - 1);
+    weight = 1 + rand() % ((30 + 1) - 1);
+    reward = 200 + rand() % ((2000 + 1) - 200);
+    time = 100 + rand() % ((1100 + 1) - 100);
+    f_del << volume << " " << weight << " " << reward << " " << time << " " << '\n';
+  }
+
+  f_del.close();
+}

@@ -1,8 +1,6 @@
 #include "include/classes/Menu.h"
 
 int main() {
-  Menu menu;
-  menu.run();
-
+  generate_data();
   return 0;
 }
