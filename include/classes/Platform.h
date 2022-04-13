@@ -22,7 +22,7 @@ private:
 
   std::unordered_map<unsigned, std::list<unsigned>> task_assigns;
   
-  void print_solution();
+  void print_solution(long int time_elapsed, std::string assistants_file, std::string deliveries_file);
   /* to be completed */
 public:
 
@@ -34,13 +34,12 @@ public:
   std::vector<Delivery>  get_deliveries() const;
 
   /* other functions */
-  void load_scenario(unsigned int scenario);
+  void load_scenario(unsigned int scenario, unsigned int size);
 
   /* algorithms & optimizations */
-  void minimize_assistants();
+  void minimize_assistants(std::string assistants_file, std::string deliveries_file);
   void maximize_profits();
   void minimize_time();
-  void temp();
 
   /* print functions */
   /* to be completed */

@@ -10,6 +10,7 @@
 
 #include "classes/Assistant.h"
 #include "classes/Delivery.h"
+#include "const.h"
 
 
 
@@ -39,12 +40,6 @@ std::vector<std::string> read_menu_file(const std::string filename);
 
 /* sorting functions */
 
-bool sort_delw(Delivery d1, Delivery d2);
-bool sort_delv(Delivery d1, Delivery d2);
-
-bool sort_assw(Assistant a1, Assistant a2);
-bool sort_assv(Assistant a1, Assistant a2);
-
 bool sort_ass_value(Assistant a1, Assistant a2);
 
 
@@ -55,4 +50,4 @@ bool fits(Delivery delivery, Assistant assistant);
 
 /* data generation */
 
-void generate_data();
+void generate_data(int exponent);

@@ -16,16 +16,25 @@ std::vector<Delivery> Platform::get_deliveries() const {
   return this->deliveries;
 }
 
-void Platform::load_scenario(unsigned int scenario) {
-  std::string x = "./data/assistants" + std::to_string(scenario) + ".txt";
+void Platform::load_scenario(unsigned int scenario, unsigned int size) {
+  const std::string assistants_file = ASSISTANTS_FILE_PREFIX + std::to_string(int(pow(2, size + 7))) + TEXT_FILE_SUFFIX;
+  const std::string deliveries_file = DELIVERIES_FILE_PREFIX + std::to_string(int(pow(2, size + 7))) + TEXT_FILE_SUFFIX;
 
-  this->assistants = read_assistants_file("data/assistants.txt");
-  this->deliveries = read_deliveries_file("data/deliveries.txt");
-  // this->minimize_assistants();
-   this->temp();
+  std::cout << assistants_file << std::endl;
+
+  this->assistants = read_assistants_file(assistants_file);
+  this->deliveries = read_deliveries_file(deliveries_file);
+  
+  switch (scenario) {
+    case 1: this->minimize_assistants(assistants_file, deliveries_file); break;
+    // case 2: this->maximize_profits(); break;
+    // case 3: this->minimize_time(); break;
+    default: std::cerr << "That scenario does not exist." << std::endl;
+  }
 }
 
-void Platform::minimize_assistants() {
+void Platform::minimize_assistants(std::string assistants_file, std::string deliveries_file) {
+  /* start counter */
   std::chrono::steady_clock::time_point begin = std::chrono::steady_clock::now();
 
   this->total_volume = 0;
@@ -57,85 +66,40 @@ void Platform::minimize_assistants() {
         break;
       }
   
+  /* stop counter, calculate time elapsed */
   std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
-  cout << "Time passed: " << std::chrono::duration_cast<std::chrono::nanoseconds>(end - begin).count() << std::endl;
+  long int time_elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(end - begin).count();
   
-  this->print_solution();
+  this->print_solution(time_elapsed, assistants_file, deliveries_file);
 }
 
-void Platform::temp() {
-  /* sort by volume */
-  std::sort(this->assistants.begin(), this->assistants.end(), sort_assv);
-  std::sort(this->deliveries.begin(), this->deliveries.end(), sort_delv);  
-
-  for (const Delivery& delivery : this->deliveries)
-    for (Assistant& assistant : this->assistants)
-      if (fits(delivery, assistant)) {
-        task_assigns[assistant.get_id()].push_back(delivery.get_id());
-
-        assistant.set_weight(assistant.get_max_weight() - delivery.get_weight());
-        assistant.set_volume(assistant.get_max_volume() - delivery.get_volume());
-        
-        break;
-      }
-
-  this->print_solution();
-  this->task_assigns.clear();
-
-  /* sort by weight */
-  this->assistants = read_assistants_file("data/assistants.txt");
-  this->deliveries = read_deliveries_file("data/deliveries.txt");
-
-  std::sort(this->assistants.begin(), this->assistants.end(), sort_assw);
-  std::sort(this->deliveries.begin(), this->deliveries.end(), sort_delw);  
-
-  for (const Delivery& delivery : this->deliveries) {
-    for (Assistant& assistant : this->assistants)
-      if (fits(delivery, assistant)) {
-        task_assigns[assistant.get_id()].push_back(delivery.get_id());
-
-        assistant.set_weight(assistant.get_max_weight() - delivery.get_weight());
-        assistant.set_volume(assistant.get_max_volume() - delivery.get_volume());
-        
-        break;
-      }
-  }
-  this->print_solution();
-}
-
-
-// Assistant 1 - deliveries 1, 2, 3...
-// carried weight: xx/yy
-// carried volume: xx/yy
-void Platform::print_solution() {
+void Platform::print_solution(long int time_elapsed, std::string assistants_file, std::string deliveries_file) {
   int num_deliveries = 0;
   int num_assistants = 0;
 
-  this->assistants = read_assistants_file("data/assistants.txt");
-  this->deliveries = read_deliveries_file("data/deliveries.txt");
+  this->assistants = read_assistants_file(assistants_file);
+  this->deliveries = read_deliveries_file(deliveries_file);
 
-
-  for (int i = 0; i < Assistant::get_last_id(); i++) {
-    if (!task_assigns[i].empty()) {
-      cout << "Assistant " << i << " - deliveries:";
+  for (auto it : task_assigns) {
+    if (!it.second.empty()) {
+      cout << "Assistant " << it.first << " - deliveries:";
       int carried_weight = 0;
       int carried_volume = 0;
-      for (const unsigned int& delivery : task_assigns[i]) {
+      
+      for (const unsigned int& delivery : it.second) {
         num_deliveries++;
         carried_weight += this->deliveries[delivery].get_weight();
         carried_volume += this->deliveries[delivery].get_volume();
-        std::cout << " " << delivery;
+        cout << " " << delivery;
       }
-      cout << "\ncarried weight: " << carried_weight << "/" << this->assistants[i].get_max_weight();
-      cout << "\ncarried volume: " << carried_volume << "/" << this->assistants[i].get_max_volume();
+      cout << "\ncarried weight: " << carried_weight << "/" << this->assistants[it.first].get_max_weight();
+      cout << "\ncarried volume: " << carried_volume << "/" << this->assistants[it.first].get_max_volume();
       cout << "\n\n";
     }
+    num_assistants++;
   }
 
-  for (auto i : task_assigns)
-    if (!i.second.empty())
-      num_assistants++;
-
+  cout << "Time elapsed: " << time_elapsed << std::endl;
   cout << "Number of assistants: " << num_assistants << std::endl;
   cout << "Number of deliveries: " << num_deliveries << std::endl;
   cout << "\n\n";

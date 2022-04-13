@@ -128,45 +128,17 @@ int choose_option() {
   return -1;
 }
 
-
-bool sort_delw(Delivery d1, Delivery d2) {
-  if (d1.get_weight() == d2.get_weight())
-    return d1.get_volume() > d2.get_volume();
-  
-  return d1.get_weight() > d2.get_weight();
-}
-
-bool sort_delv(Delivery d1, Delivery d2) {
-  if (d1.get_volume() == d2.get_volume())
-    return d1.get_weight() > d2.get_weight();
-
-  return d1.get_volume() > d2.get_volume();
-}
-
-bool sort_assw(Assistant a1, Assistant a2) {
-  if (a1.get_max_weight() == a2.get_max_weight())
-    return a1.get_max_volume() > a2.get_max_volume();
-  
-  return a1.get_max_weight() > a2.get_max_weight();
-}
-
-bool sort_assv(Assistant a1, Assistant a2) {
-  if (a1.get_max_volume() == a2.get_max_volume())
-    return a1.get_max_weight() > a2.get_max_weight();
-  
-  return a1.get_max_volume() > a2.get_max_volume();
-}
-
 bool sort_ass_value(Assistant a1, Assistant a2) {
   return a1.get_value() > a2.get_value();
 }
 
 bool fits(Delivery delivery, Assistant assistant) {
-  return assistant.get_max_volume() >= delivery.get_volume() && assistant.get_max_weight() >= delivery.get_weight();
+  return assistant.get_max_volume() >= delivery.get_volume() 
+      && assistant.get_max_weight() >= delivery.get_weight();
 }
 
-void generate_data() {
-  int num_assistants = 1;
+void generate_data(int exponent) {
+  int num_assistants = pow(2, exponent);
   int num_deliveries = 9 * num_assistants; // this ratio was based on the original dataset (50 assistants to 450 deliveries)
   
   int volume, weight, reward, cost, time;
@@ -181,7 +153,7 @@ void generate_data() {
   f_ass.open(assistants_file);
 
   f_ass << num_assistants << '\n';
-  f_ass << "volMax pesoMax custo" << '\n'; // write the header
+  f_ass << ASSISTANTS_HEADER; // write the header
 
   srand(std::time(NULL));
 
@@ -199,7 +171,7 @@ void generate_data() {
   f_del.open(deliveries_file);
 
   f_del << num_deliveries << '\n';
-  f_del << "volume peso recompensa duração(s)" << '\n';
+  f_del << DELIVERIES_HEADER;
 
   srand(std::time(NULL));
 

@@ -7,6 +7,7 @@ class Menu {
 private:
   Platform platform;
   std::vector<std::string> layout;
+  std::vector<std::string> sizes;
   /* to be completed */
 
 public:
@@ -16,8 +17,8 @@ public:
 
   /* other methods */
   void run();
-
-  void init_scenario(unsigned int scenario); // opt 3, 4, 5
+  void init_scenario(unsigned int scenario, unsigned int size);
+  void ask_size(unsigned int scenario); 
 };
 
 #endif
