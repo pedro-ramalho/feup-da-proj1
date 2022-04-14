@@ -9,7 +9,13 @@
 #define MENU_FILE              "data/menu.txt" // file to fetch menu layout
 #define SIZES_FILE             "data/sizes.txt"
 
+
 /* file headers */
 
 #define ASSISTANTS_HEADER "volMax pesoMax custo\n"
 #define DELIVERIES_HEADER "volume peso recompensa duração(s)\n" 
+
+
+/* time limits */
+
+#define TIME_LIMIT 28800

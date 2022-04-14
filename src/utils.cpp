@@ -132,9 +132,29 @@ bool sort_ass_value(Assistant a1, Assistant a2) {
   return a1.get_value() > a2.get_value();
 }
 
+bool sort_del_value(Delivery d1, Delivery d2) {
+  return ( (d1.get_weight() + d1.get_volume()) > (d2.get_weight() + d2.get_volume()) );
+}
+
+bool sort_del_time(Delivery d1, Delivery d2) {
+  return d1.get_time() < d2.get_time();
+}
+
 bool fits(Delivery delivery, Assistant assistant) {
   return assistant.get_max_volume() >= delivery.get_volume() 
       && assistant.get_max_weight() >= delivery.get_weight();
+}
+
+bool valid_set(Assistant assistant, std::vector<Delivery> deliveries) {
+  int total_weight = 0, total_volume = 0;
+
+  for (const auto delivery : deliveries) {
+    total_weight += delivery.get_weight();
+    total_volume += delivery.get_volume();
+  }
+
+  return assistant.get_max_volume() >= total_volume 
+      && assistant.get_max_weight() >= total_weight;
 }
 
 void generate_data(int exponent) {
