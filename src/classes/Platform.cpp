@@ -55,6 +55,7 @@ void Platform::load_scenario(unsigned int scenario, unsigned int size) {
 
 
 void Platform::minimize_assistants(std::string assistants_file, std::string deliveries_file) {
+
   /* start counter */
   std::chrono::steady_clock::time_point begin = std::chrono::steady_clock::now();
 
@@ -92,18 +93,44 @@ void Platform::minimize_assistants(std::string assistants_file, std::string deli
 }
 
 void Platform::maximize_profits(std::string assistants_file, std::string deliveries_file) {
+  std::chrono::steady_clock::time_point begin = std::chrono::steady_clock::now();
+
+  int profit = 0;
+
+  std::sort(this->assistants.begin(), this->assistants.end(), sort_ass_cost);
+  std::sort(this->deliveries.begin(), this->deliveries.end(), sort_del_reward);
+
+  for (const Delivery& delivery : this->deliveries)
+    for (Assistant& assistant : this->assistants) {
+      if (fits(delivery, assistant)) {
+        task_assigns[assistant.get_id()].push_back(delivery.get_id());
+
+        assistant.set_weight(assistant.get_max_weight() - delivery.get_weight());
+        assistant.set_volume(assistant.get_max_volume() - delivery.get_volume());
+        
+        break;
+      }
+    }
+
+    /*    PSEUDO-CODE IDEAS
+    
+      1.
+        - Do Scenario 1 then remove unprofitable deliveries
+      
+      2.
+        - Dar sort aos estafetas por profitability (volume + weight) / (cost) ) --random criterio
+        - Dar sort as encomendas por profitability ()
+
+
+
+
+    */
+
+  /* stop counter, calculate time elapsed */
+  std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
+  long int time_elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(end - begin).count();
   
-  /* BASIC SOLUTION (first-fit decreasing)
-
-    sort(assistants by cost, ascending order)
-    sort(deliveries by reward, descending order)
-
-    for delivery in deliveries
-      for assistant in assistants
-        if fits(delivery, assistant)
-          task[assistant].add(delivery)
-  */
-
+  this->print_solution(time_elapsed, assistants_file, deliveries_file);
 }
 
 void Platform::minimize_time(std::string assistants_file, std::string deliveries_file) {
@@ -132,12 +159,14 @@ void Platform::minimize_time(std::string assistants_file, std::string deliveries
 void Platform::print_solution(long int time_elapsed, std::string assistants_file, std::string deliveries_file) {
   int num_deliveries = 0;
   int num_assistants = 0;
+  int total_cost = 0, total_reward = 0;
 
   this->assistants = read_assistants_file(assistants_file);
   this->deliveries = read_deliveries_file(deliveries_file);
 
   for (auto it : task_assigns) {
     if (!it.second.empty()) {
+      total_cost += this->assistants[it.first].get_cost();
       // cout << "Assistant " << it.first << " - deliveries:";
       int carried_weight = 0;
       int carried_volume = 0;
@@ -146,6 +175,7 @@ void Platform::print_solution(long int time_elapsed, std::string assistants_file
         num_deliveries++;
         carried_weight += this->deliveries[delivery].get_weight();
         carried_volume += this->deliveries[delivery].get_volume();
+        total_reward += this->deliveries[delivery].get_compensation();
         // cout << " " << delivery;
       }
       //cout << "\ncarried weight: " << carried_weight << "/" << this->assistants[it.first].get_max_weight();
@@ -154,9 +184,11 @@ void Platform::print_solution(long int time_elapsed, std::string assistants_file
     }
     num_assistants++;
   }
+  int profit = total_reward - total_cost;
 
   cout << "Time elapsed: " << time_elapsed << std::endl;
   cout << "Number of assistants: " << num_assistants << std::endl;
   cout << "Number of deliveries: " << num_deliveries << std::endl;
+  cout << "Profit: " << profit << std::endl;
   cout << "\n\n";
 }

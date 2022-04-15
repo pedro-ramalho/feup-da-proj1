@@ -132,12 +132,20 @@ bool sort_ass_value(Assistant a1, Assistant a2) {
   return a1.get_value() > a2.get_value();
 }
 
+bool sort_ass_cost(Assistant a1, Assistant a2) {
+  return a1.get_cost() < a2.get_cost();
+}
+
 bool sort_del_value(Delivery d1, Delivery d2) {
   return ( (d1.get_weight() + d1.get_volume()) > (d2.get_weight() + d2.get_volume()) );
 }
 
 bool sort_del_time(Delivery d1, Delivery d2) {
   return d1.get_time() < d2.get_time();
+}
+
+bool sort_del_reward(Delivery d1, Delivery d2) {
+  return d1.get_compensation() > d2.get_compensation();
 }
 
 bool fits(Delivery delivery, Assistant assistant) {
