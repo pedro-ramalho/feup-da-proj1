@@ -46,8 +46,8 @@ void Platform::load_scenario(unsigned int scenario, unsigned int size) {
 void Platform::minimize_assistants(std::string assistants_file, std::string deliveries_file) {
   /* start counter */
   std::chrono::steady_clock::time_point begin = std::chrono::steady_clock::now();
-
-  std::vector<Assistant> assistants_vec = this->assistants;
+  // O(n + m + nlog(n) + mlog(m) + nm)
+  std::vector<Assistant> assistants_vec = this->assistants; 
   std::vector<Delivery> deliveries_vec = this->deliveries;
   
   std::sort(assistants_vec.begin(), assistants_vec.end(), sort_ass_value);

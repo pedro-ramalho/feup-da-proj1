@@ -7,6 +7,6 @@
 [7] 8 192 Assistants, 73 728 Deliveries
 [8] 16 384 Assistants, 147 456 Deliveries
 [9] 32 768 Assistants, 294 912 Deliveries
-[10] Default dataset (450 Assistants, 50 Deliveries)
+[10] Default dataset (50 Assistants, 450 Deliveries)
 
 [0] Exit
