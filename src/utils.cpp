@@ -159,18 +159,6 @@ bool fits(Delivery delivery, Assistant assistant) {
       && assistant.get_max_weight() >= delivery.get_weight();
 }
 
-bool valid_set(Assistant assistant, std::vector<Delivery> deliveries) {
-  int total_weight = 0, total_volume = 0;
-
-  for (const auto delivery : deliveries) {
-    total_weight += delivery.get_weight();
-    total_volume += delivery.get_volume();
-  }
-
-  return assistant.get_max_volume() >= total_volume 
-      && assistant.get_max_weight() >= total_weight;
-}
-
 void generate_data(int exponent) {
   int num_assistants = pow(2, exponent);
   int num_deliveries = 9 * num_assistants; // this ratio was based on the original dataset (50 assistants to 450 deliveries)

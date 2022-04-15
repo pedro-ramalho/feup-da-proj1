@@ -21,8 +21,6 @@ void Platform::clear() {
   this->assistants = {};
   this->deliveries = {};
   this->task_assigns.clear();
-  this->total_volume = 0;
-  this->total_weight = 0;
 }
 
 void Platform::load_scenario(unsigned int scenario, unsigned int size) {
@@ -48,12 +46,15 @@ void Platform::load_scenario(unsigned int scenario, unsigned int size) {
 void Platform::minimize_assistants(std::string assistants_file, std::string deliveries_file) {
   /* start counter */
   std::chrono::steady_clock::time_point begin = std::chrono::steady_clock::now();
-  
-  std::sort(this->assistants.begin(), this->assistants.end(), sort_ass_value);
-  std::sort(this->deliveries.begin(), this->deliveries.end(), sort_del_value);
 
-  for (const Delivery& delivery : this->deliveries) 
-    for (Assistant& assistant : this->assistants) 
+  std::vector<Assistant> assistants_vec = this->assistants;
+  std::vector<Delivery> deliveries_vec = this->deliveries;
+  
+  std::sort(assistants_vec.begin(), assistants_vec.end(), sort_ass_value);
+  std::sort(deliveries_vec.begin(), deliveries_vec.end(), sort_del_value);
+
+  for (const Delivery& delivery : deliveries_vec) 
+    for (Assistant& assistant : assistants_vec) 
       if (fits(delivery, assistant)) {
         task_assigns[assistant.get_id()].push_back(delivery.get_id());
 
@@ -76,11 +77,14 @@ void Platform::maximize_profits(std::string assistants_file, std::string deliver
 
   int profit = 0;
 
-  std::sort(this->assistants.begin(), this->assistants.end(), sort_ass_cost);
-  std::sort(this->deliveries.begin(), this->deliveries.end(), sort_del_reward);
+  std::vector<Assistant> assistants_vec = this->assistants;
+  std::vector<Delivery> deliveries_vec = this->deliveries;
+  
+  std::sort(assistants_vec.begin(), assistants_vec.end(), sort_ass_cost);
+  std::sort(deliveries_vec.begin(), deliveries_vec.end(), sort_del_value);
 
-  for (const Delivery& delivery : this->deliveries)
-    for (Assistant& assistant : this->assistants) {
+  for (const Delivery& delivery : deliveries_vec) 
+    for (Assistant& assistant : assistants_vec) 
       if (fits(delivery, assistant)) {
         task_assigns[assistant.get_id()].push_back(delivery.get_id());
 
@@ -89,7 +93,7 @@ void Platform::maximize_profits(std::string assistants_file, std::string deliver
         
         break;
       }
-    }
+
 
   /* stop counter, calculate time elapsed */
   std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
@@ -101,20 +105,22 @@ void Platform::maximize_profits(std::string assistants_file, std::string deliver
 void Platform::minimize_time(std::string assistants_file, std::string deliveries_file) {
   int total_time = 0, curr_index = 0, num_deliveries = 0;
 
-  std::sort(this->deliveries.begin(), this->deliveries.end(), sort_del_time);
+  std::vector<Delivery> deliveries_vec = this->deliveries;
+
+  std::sort(deliveries_vec.begin(), deliveries.end(), sort_del_time);
 
   std::cout << "\nDelivery order: ";
   while (true) {
-    total_time += this->deliveries[curr_index].get_time();
+    total_time += deliveries_vec[curr_index].get_time();
     num_deliveries++;
 
     if (total_time > TIME_LIMIT) {
-      total_time -= this->deliveries[curr_index].get_time();
+      total_time -= deliveries_vec[curr_index].get_time();
       num_deliveries--;
       break;
     }
 
-    std::cout << this->deliveries[curr_index].get_id() << " ";
+    std::cout << deliveries_vec[curr_index].get_id() << " ";
     curr_index++;
   }
   std::cout << "\n\nTotal time: " << total_time << "/" << TIME_LIMIT << '\n';
@@ -125,9 +131,6 @@ void Platform::print_solution(double time_elapsed, std::string assistants_file, 
   int num_deliveries = 0;
   int num_assistants = 0;
   long int total_cost = 0, total_reward = 0;
-
-  this->assistants = read_assistants_file(assistants_file);
-  this->deliveries = read_deliveries_file(deliveries_file);
 
   for (auto it : task_assigns) {
     if (!it.second.empty()) {
@@ -149,6 +152,7 @@ void Platform::print_solution(double time_elapsed, std::string assistants_file, 
     }
     num_assistants++;
   }
+  
   long int profit = total_reward - total_cost;
 
   cout << "Time elapsed: " << time_elapsed << std::endl;

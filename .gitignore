@@ -17,3 +17,8 @@ report/*.out
 report/*.snm
 report/*.toc
 report/*.vrb
+
+# ignore doxygen files
+
+Doxyfile
+latex/
