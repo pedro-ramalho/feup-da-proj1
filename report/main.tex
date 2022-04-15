@@ -3,6 +3,37 @@
 \documentclass{beamer}
 
 \usepackage[utf8]{inputenc}
+\usepackage{listings}
+\usepackage{xcolor}
+
+% Color definitions
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{RGB}{240,240,240}
+
+% Define a listing style
+\lstdefinestyle{mystyle}{
+  backgroundcolor=\color{backcolour}, commentstyle=\color{codegreen},
+  keywordstyle=\color{magenta},
+  numberstyle=\tiny\color{codegray},
+  stringstyle=\color{codepurple},
+  basicstyle=\ttfamily\footnotesize,
+  breakatwhitespace=false,         
+  breaklines=true,                 
+  captionpos=b,                    
+  keepspaces=true,                 
+  numbers=left,                    
+  numbersep=5pt,                  
+  showspaces=false,                
+  showstringspaces=false,
+  showtabs=false,                  
+  tabsize=2
+}
+
+% Set the listing style
+\lstset{style=mystyle}
+
 \usetheme{Madrid}
 
 %--------------------------
@@ -71,9 +102,9 @@
 %-------------------------------------------------------
 
 % frame 1
-\begin{frame}
-  \frametitle{Sample frame title}
-    Descrição do problema goes here.  
+\begin{frame}[fragile]
+\frametitle{Sample frame title}
+Descrição do problema goes here.  
 \end{frame}
 
 % End section : Descrição do problema
@@ -91,18 +122,33 @@
 
 % frame 1
 \begin{frame}
-  \frametitle{Formalização do Problema}
-  Super important text.
+\frametitle{Formalização do Problema}
+Super important text.
 \end{frame}
 
 % frame 2
-\begin{frame}
-  \frametitle{Descrição dos Algoritmos}
-  Super important text.
+\begin{frame}[fragile]
+\frametitle{Descrição do Algoritmo}
+Em baixo encontra-se pseudocódigo para o algoritmo usado no cenário 1:
+\begin{lstlisting}[language=python]
+for estafeta in estafetas:
+  estafeta.valor = estafeta.max_vol + estafeta.max_peso
+
+for entrega in entregas:
+  entrega.valor = entrega.vol + entrega.peso
+
+sort(estafetas, por valor, ordem decrescente)
+sort(entregas, por valor, ordem decrescente)
+
+for entrega in entregas:
+  for estafeta in estafetas:
+    if fits(entrega, estafeta):
+      estafeta.add_entrega(entrega)
+      break
+\end{lstlisting}
 \end{frame}
 
 % frame 3
-
 \begin{frame}
   \frametitle{Análise da Complexidade}
   Super important text.

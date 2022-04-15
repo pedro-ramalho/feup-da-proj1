@@ -11,7 +11,6 @@ private:
 	unsigned int max_volume;
 	unsigned int max_weight;
   unsigned int cost;
-  double value;
   //possibly int max_time
   
 public:
@@ -22,7 +21,6 @@ public:
   /* getters */  
   unsigned int get_id() const;
   unsigned int get_cost() const;
-  double get_value() const;
   unsigned int get_max_volume() const;
   unsigned int get_max_weight() const;
   static unsigned int get_last_id();
@@ -30,7 +28,6 @@ public:
   /* setters */
   void set_weight(unsigned int weight);
   void set_volume(unsigned int volume);
-  void set_value(double value);
   static void reset_last_id();
 
   /* operator overloads */

@@ -38,4 +38,7 @@ void Menu::ask_size(unsigned int scenario) {
 // load the scenario
 void Menu::init_scenario(unsigned int scenario, unsigned int size) {
   this->platform.load_scenario(scenario, size);
+  this->platform.clear();
+  
+  this->run();
 }

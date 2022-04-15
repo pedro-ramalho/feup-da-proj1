@@ -16,3 +16,4 @@ report/*.nav
 report/*.out
 report/*.snm
 report/*.toc
+report/*.vrb

@@ -129,11 +129,14 @@ int choose_option() {
 }
 
 bool sort_ass_value(Assistant a1, Assistant a2) {
-  return a1.get_value() > a2.get_value();
+  return ( (a1.get_max_weight() + a1.get_max_volume()) > (a2.get_max_weight() + a2.get_max_volume()) );
 }
 
 bool sort_ass_cost(Assistant a1, Assistant a2) {
-  return a1.get_cost() < a2.get_cost();
+  double a1_value = (a1.get_max_volume() + a1.get_max_weight()) / (double) (a1.get_cost());
+  double a2_value = (a2.get_max_volume() + a2.get_max_weight()) / (double) (a2.get_cost());
+
+  return a1_value > a2_value;
 }
 
 bool sort_del_value(Delivery d1, Delivery d2) {
@@ -145,7 +148,10 @@ bool sort_del_time(Delivery d1, Delivery d2) {
 }
 
 bool sort_del_reward(Delivery d1, Delivery d2) {
-  return d1.get_compensation() > d2.get_compensation();
+  double d1_value = ((double) d1.get_compensation()) / (d1.get_weight() + d1.get_volume());
+  double d2_value = ((double) d2.get_compensation()) / (d2.get_weight() + d2.get_volume());
+
+  return d1_value > d2_value;
 }
 
 bool fits(Delivery delivery, Assistant assistant) {

@@ -25,14 +25,6 @@ unsigned int Assistant::get_id() const {
   return this->id;
 }
 
-double Assistant::get_value() const {
-  return this->value;
-}
-
-void Assistant::set_value(double value) {
-  this->value = value;
-}
-
 void Assistant::set_weight(unsigned int weight) {
   this->max_weight = weight;
 }

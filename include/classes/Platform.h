@@ -22,10 +22,8 @@ private:
 
   std::unordered_map<unsigned, std::list<unsigned>> task_assigns;
   
-  void find_set_backtrack(Assistant assistant, std::vector<Delivery> deliveries, 
-  std::vector<Delivery> curr_sol, std::vector<Delivery> best, unsigned int curr_idx, unsigned int size);
-  void print_solution(long int time_elapsed, std::string assistants_file, std::string deliveries_file);
-  /* to be completed */
+  void print_solution(double time_elapsed, std::string assistants_file, std::string deliveries_file);
+
 public:
 
   /* constructor */
@@ -44,7 +42,7 @@ public:
   void minimize_time(std::string assistants_file, std::string deliveries_file);
 
   /* print functions */
-  /* to be completed */
+  void clear();
 };
 
 #endif
