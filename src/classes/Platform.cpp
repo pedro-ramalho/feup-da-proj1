@@ -103,11 +103,12 @@ void Platform::maximize_profits(std::string assistants_file, std::string deliver
 }
 
 void Platform::minimize_time(std::string assistants_file, std::string deliveries_file) {
+  std::chrono::steady_clock::time_point begin = std::chrono::steady_clock::now();
   int total_time = 0, curr_index = 0, num_deliveries = 0;
 
   std::vector<Delivery> deliveries_vec = this->deliveries;
 
-  std::sort(deliveries_vec.begin(), deliveries.end(), sort_del_time);
+  std::sort(deliveries_vec.begin(), deliveries_vec.end(), sort_del_time);
 
   std::cout << "\nDelivery order: ";
   while (true) {
@@ -123,7 +124,10 @@ void Platform::minimize_time(std::string assistants_file, std::string deliveries
     std::cout << deliveries_vec[curr_index].get_id() << " ";
     curr_index++;
   }
-  std::cout << "\n\nTotal time: " << total_time << "/" << TIME_LIMIT << '\n';
+  std::chrono::steady_clock::time_point end = std::chrono::steady_clock::now();
+  double time_elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(end - begin).count();
+  std::cout << "\n\nTime elapsed: " << time_elapsed << '\n';
+  std::cout << "Total time: " << total_time << "/" << TIME_LIMIT << '\n';
   std::cout << "Number of deliveries: " << num_deliveries << std::endl;
 }
 
